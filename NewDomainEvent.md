@@ -6,28 +6,84 @@ Whenever a new domain is seen in the query stream, this is sent as an event to t
 
 The main dataset is related only to the query data and response. This data is not directly connected to any given client. However, the query itself may be unique to a given client, which in the context of other queries could be used to correlate data to a specific user, but given that the _New domain_ event is taken out of this context and the encoding of the personal data is known only to the domain owner, this data is privacy safe. Also, there is no exact timing data included in the main data as arrival time to the analysis platform is sufficient, which mitigates using event time for correlation. 
 
-
-´Name        Type            Description´
----
-´´´
-name        bytestring      The full domain
-type        int16           Query type
-class       int16           Query Class
-flags       int16           Header flags
-ttl         int32           Resource record time-to-live
-rdlength    int16           Length of RDATA
-rdata       bytestring      Resource record
-nsname      bytestring      Name of responding authoritative server
-nsip        ip              Address of responding authoritative server
-´´´
+<table>
+  <tr>
+    <th>Name</th>        
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>name</td>        
+    <td>bytestring</td>      
+    <td>The full domain</td>
+  </tr>
+  <tr>
+    <td>type</td>        
+    <td>int16</td>           
+    <td>Query type</td>
+  </tr>
+  <tr>
+    <td>class</td>       
+    <td>int16</td>           
+    <td>Query Class</td>
+  </tr>
+  <tr>
+    <td>flags</td>       
+    <td>int16</td>           
+    <td>Header flags</td>
+  </tr>
+  <tr>
+    <td>ttl</td>         
+    <td>int32</td>           
+    <td>Resource record time-to-live</td>
+  </tr>
+  <tr>
+    <td>rdlength</td>    
+    <td>int16</td>           
+    <td>Length of RDATA</td>
+  </tr>
+  <tr>
+    <td>rdata</td>       
+    <td>bytestring</td>      
+    <td>Resource record</td>
+  </tr>
+  <tr>
+    <td>nsname</td>      
+    <td>bytestring</td>      
+    <td>Name of responding authoritative server</td>
+  </tr>
+  <tr>
+    <td>nsip</td>        
+    <td>ip</td>              
+    <td>Address of responding authoritative server</td>
+  </tr>
+</table>
 
 Extensions for local use include information about the querying client, but these are not privacy safe and should be confined to the local system owner.
 
-Name        Type            Description
----
-client      ip              Pseaudonymized client IP address
-timestamp   datetime        Client query time
-qheader     int16           Request header flags
+
+<table>
+  <tr>
+    <th>Name</th>        
+    <th>Type</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>client</td>
+    <td>ip</td>              
+    <td>Pseaudonymized client IP address</td>
+  </tr>
+  <tr>
+    <td>timestamp</td>   
+    <td>datetime</td>        
+    <td>Client query time</td>
+  </tr>
+  <tr>
+    <td>qheader</td>     
+    <td>int16</td>           
+    <td>Request header flags</td>
+  </tr>
+</table>
 
 
 ## Source
