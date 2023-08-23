@@ -23,7 +23,7 @@ Vectors are encoded sequences of queries
 
 ## Sets
 
-Sets are, in essence, lookup tables. These are generally viewed as either _known good_ or _known bad_ baselines, but without actual ground truth the nominations are more correctly described as _probably good_ or _probably bad_.
+Sets are, in essence, lookup tables. These are generally viewed as either _known good_ or _known bad_ baselines, but without actual ground truth the nominations are more correctly described as _probably good_ or _probably bad_. Note that sets are not necessarily implemented as separate tables, and can very well be a unified lookup table with multiple sets.
 
 #### Known good
 
