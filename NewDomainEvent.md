@@ -4,7 +4,7 @@ Whenever a new domain is seen in the query stream, this is sent as an event to t
 
 ## Data
 
-The main dataset is related only to the query data and response. This data is not directly connected to any given client. However, the query itself may be unique to a given client, which in the context of other queries could be used to correlate data to a specific user, but given that the [New domain](#Event:-New-domain) event is taken out of this context and the encoding of the personal data is known only to the domain owner, this data is privacy safe. Also, there is no exact timing data included in the main data as arrival time to the analysis platform is sufficient, which mitigates using event time for correlation. 
+The main dataset is related only to the query data and response. This data is not directly connected to any given client. However, the query itself may be unique to a given client, which in the context of other queries could be used to correlate data to a specific user, but given that the [New domain](#Event-New-domain) event is taken out of this context and the encoding of the personal data is known only to the domain owner, this data is privacy safe. Also, there is no exact timing data included in the main data as arrival time to the analysis platform is sufficient, which mitigates using event time for correlation. 
 
 <table>
   <tr>
