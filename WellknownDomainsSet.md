@@ -1,6 +1,6 @@
 # Set: Wellknown domains
 
-Members of this set are high frequency domains generally seen as benign or harmless. Examples are 'www.google.com', 'facebook.com', etc. 
+Members of this set are high frequency domains generally seen as benign or harmless. Examples are `www.google.com`, `www.facebook.com`, etc. 
 
 ## Implementation thoughts
 
