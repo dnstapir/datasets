@@ -37,45 +37,78 @@
 
 // Query metadata
 
-struct
-23    query_id         uint16
-24    query_flags      uint16
-26    query_type       uint16
-25    query_class      uint16
+23    qheader struct                  
+        id          uint16
+        flags       uint16
 
-struct
-27      qdcount          uint16
-28      ancount          uint16
-29      nscount          uint16
-30      arcount          uint16
+24    qcounters struct                set only if not [1,0,0,0]
+        qd          uint16
+        an          uint16
+        ns          uint16
+        ar          uint16
 
 // Response data
 
-struct
-27    response_id      uint16
-27    response_flags   uint16
-29    response_type    uint16
-28    response_class   uint16
+25     rheader struct
+         id              uint16
+         flags           uint16
 
-struct
-27      qdcount          uint16
-28      ancount          uint16
-29      nscount          uint16
-30      arcount          uint16
 
-28    ttl                uint16
+26      rcounters struct             set only if not [1,1,0,0]
+          qd          uint16
+          an          uint16
+          ns          uint16
+          ar          uint16
 
-29    rdlength           uint16
 
-30    rdata              union
-        ipv4address      uint32
-        ipv6address      [uint64,uint64]
-        name             VarBinary
-        mx               struct
-          preference     uint16
-          name           VarBinary
-        soa              struct
+// Resource records
+
+27    rr struct
+
+        type            uint16
+        class           uint16
+        ttl             uint32
+        rdlength        uint16
+        rdata           union
+
+          generic          VarBinary
+
+          a                uint32
+        
+          aaaa struct
+            network        uint64
+            host           uint64
           
+          mx struct
+            preference     uint16
+            name           VarBinary
+        
+          soa struct
+            mname          VarBinary
+            rname          VarBinary
+            serial         uint32
+            refresh        uint32
+            retry          uint32
+            expire         uint32
+            minimum        uint32
+
+          cname            VarBinary
+
+          hinfo struct
+            cpu            VarBinary
+            os             VarBinary
+
+          ns               VarBinary
+
+          ptr              VarBinary
+
+          txt              VarBinary
+
+
+
+
+
+
 
 
 
