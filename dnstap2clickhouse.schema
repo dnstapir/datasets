@@ -17,53 +17,67 @@
 9     label8          VarBinary          Content of ninth label from the right
 10    label9          List<VarBinary>    Content of all labels beyond ninth
 
-// Transport data
+// Source system
 
-11    source_ipv4     uint32
-12    source_ipv6     [uint64, uint64]
-13    source_port     uint16
-14    dest_ipv4       uint32
-15    dest_ipv6       [uint64, uint64]
-16    dest_port       uint16
-17    transport       enum(UDP, TCP, QUIC...)
-18    protocol        enum(DNS, DoH, DoT...)
-19    flags           uint32
-20    keyhash         VarBinary
+11    server_id       [ubyte]   UUID?
+      session_id      uint64
+      referal_id      uint64
+      server_state    list<kvpairs>
 
 // Time data
 
-21    query_time      [uint64,uint64]
-22    response_time   [uint64,uint64]
+22    query_time      struct
+        s             uint64
+        ns            uint64
+23    response_time   struct
+        s             uint64
+        ns            uint64
+
+// Transport data
+
+12    source_ipv4     uint32
+13    source_ipv6     struct
+        network       uint64
+        host          uint64 
+14    source_port     uint16
+15    dest_ipv4       uint32
+16    dest_ipv6       struct
+        network       uint64
+        host          uint64
+17    dest_port       uint16
+18    transport       enum(UDP, TCP, QUIC...)
+19    protocol        enum(DNS, DoH, DoT...)
+20    flags           uint32
+21    keyhash         VarBinary
 
 // Query metadata
 
-23    qheader struct                  
+24    qheader struct                  
         id          uint16
         flags       uint16
 
-24    qcounters struct                set only if not [1,0,0,0]
+25    qcounters struct                set only if not [1,0,0,0]
         qd          uint16
         an          uint16
         ns          uint16
         ar          uint16
 
-// Response data
+// Response metadata
 
-25     rheader struct
+26     rheader struct
          id              uint16
          flags           uint16
 
-
-26      rcounters struct             set only if not [1,1,0,0]
+27      rcounters struct             set only if not [1,1,0,0]
           qd          uint16
           an          uint16
           ns          uint16
           ar          uint16
 
 
-// Resource records
+// Resource records (query, response, auth, extra)
 
-27    rr struct
+28    list<rr:struct>
 
         type            uint16
         class           uint16
@@ -104,39 +118,127 @@
 
           txt              VarBinary
 
+          etc, until bored: the rest -> generic
+
+
+// Policy
+
+  list<policy>
+    match
+    action
+    result
 
 
 
 
 
 
+// IDN
+
+namespace se.dnstapir;
+
+struct TimeStamp {
+  s:uint64;
+  ns:uint64;
+}
+
+struct IPv4 {
+  adress:uint32;
+}
+
+struct IPv6 {
+  network:uint64;
+  host:uint64;
+}
+
+struct Header {
+  id:uint16;
+  flags:uint16;
+}
+
+struct Counters {
+  qd          uint16
+  an          uint16
+  ns          uint16
+  ar          uint16
+}
 
 
-namespace DNStapir;
+table RdGeneric {
+  data:[ubytes]
+}
 
-attribute "priority";
+table RdA {
+  data:IPv4;
+}
 
-enum Color : byte { Red = 1, Green, Blue }
+table RdAAAA {
+  data:IPv6;
+}
 
-union Any { Monster, Weapon, Pickup }
+union RecordData {
+  RdGeneric;
+  RdA;
+  RdAAAA;
+}
 
-struct Vec3 {
-  x:float;
-  y:float;
+
+
+struct ResourceRecord {
+  name:string;
+  type:uint16;
+  class:uint16;
+  ttl:uint32;
+  rdlength:uint16;
+  rdata:RecordData;
+}
+
+struct Policy {
+  match:enum
+  action:enum
+}
+
+struct Label {
+  value:[ubyte];
 }
 
 table DNS_session {
+  label0:[ubyte];
+  label1:[ubyte];
+  label2:[ubyte];
+  label3:[ubyte];
+  label4:[ubyte];
+  label5:[ubyte];
+  label6:[ubyte];
+  label7:[ubyte];
+  label8:[ubyte];
+  label9:[Label];
   
-  
-  
-  pos:Vec3;
-  mana:short = 150;
-  hp:short = 100;
-  name:string;
-  friendly:bool = false (deprecated, priority: 1);
-  inventory:[ubyte];
-  color:Color = Blue;
-  test:Any;
+  server_id:[ubyte];
+  query_time:TimeStamp;
+  response_time:TimeStamp;
+
+  source_ipv4:IPv4;
+  source_ipv6:IPv6;
+  source_port:uint16;
+  dest_ipv4:IPv4;
+  dest_ipv6:IPv6;
+  dest_port:uint16;
+  transport:enum?;
+  protocol:enum?;
+  flags:uint32;
+  keyhash:[ubyte]
+
+  qheader:Header;
+  qcounters:Counters;
+
+  rheader:Header;
+  rcounters:Counters;
+
+  records:[ResourceRecord];
+
+  policies:[Policy];
+
+
 }
 
-root_type Monster;
