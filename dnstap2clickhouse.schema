@@ -1,0 +1,109 @@
+
+// DNS index key. Split FQDN into labels and maintain individual columns for
+// each label - from right to left - with remaining labels above 9 in the last 
+// column
+// This generates a flat prefix tree / Trie structure
+// The reason for not using a list for the entire key is to be able to
+// partition on single labels
+
+1     label0          VarBinary          Content of rightmost DNS label
+2     label1          VarBinary          Content of second label from the right
+3     label2          VarBinary          Content of third label from the right
+4     label3          VarBinary          Content of fourth label from the right
+5     label4          VarBinary          Content of fifth label from the right
+6     label5          VarBinary          Content of sixth label from the right
+7     label6          VarBinary          Content of seventh label from the right
+8     label7          VarBinary          Content of eighth label from the right
+9     label8          VarBinary          Content of ninth label from the right
+10    label9          List<VarBinary>    Content of all labels beyond ninth
+
+// Transport data
+
+11    source_ipv4     uint32
+12    source_ipv6     [uint64, uint64]
+13    source_port     uint16
+14    dest_ipv4       uint32
+15    dest_ipv6       [uint64, uint64]
+16    dest_port       uint16
+17    transport       enum(UDP, TCP, QUIC...)
+18    protocol        enum(DNS, DoH, DoT...)
+19    flags           uint32
+20    keyhash         VarBinary
+
+// Time data
+
+21    query_time      [uint64,uint64]
+22    response_time   [uint64,uint64]
+
+// Query metadata
+
+struct
+23    query_id         uint16
+24    query_flags      uint16
+26    query_type       uint16
+25    query_class      uint16
+
+struct
+27      qdcount          uint16
+28      ancount          uint16
+29      nscount          uint16
+30      arcount          uint16
+
+// Response data
+
+struct
+27    response_id      uint16
+27    response_flags   uint16
+29    response_type    uint16
+28    response_class   uint16
+
+struct
+27      qdcount          uint16
+28      ancount          uint16
+29      nscount          uint16
+30      arcount          uint16
+
+28    ttl                uint16
+
+29    rdlength           uint16
+
+30    rdata              union
+        ipv4address      uint32
+        ipv6address      [uint64,uint64]
+        name             VarBinary
+        mx               struct
+          preference     uint16
+          name           VarBinary
+        soa              struct
+          
+
+
+
+namespace DNStapir;
+
+attribute "priority";
+
+enum Color : byte { Red = 1, Green, Blue }
+
+union Any { Monster, Weapon, Pickup }
+
+struct Vec3 {
+  x:float;
+  y:float;
+}
+
+table DNS_session {
+  
+  
+  
+  pos:Vec3;
+  mana:short = 150;
+  hp:short = 100;
+  name:string;
+  friendly:bool = false (deprecated, priority: 1);
+  inventory:[ubyte];
+  color:Color = Blue;
+  test:Any;
+}
+
+root_type Monster;
