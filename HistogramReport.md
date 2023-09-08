@@ -1,3 +1,46 @@
 # Report: Histogram
 
 Domain query frequency histogram for a given timeframe
+
+
+table HistogramRow {
+  // FQDN as key
+  label0:string;    // com, edu, se, uk, etc
+  label1:string;    // ac, co, google, etc
+  label2:string;    // www, mail, etc
+  label3:string;
+  label4:string;
+  label5:string;
+  label6:string;
+  label7:string;
+  label8:string;
+  label9:[string];   // remainder
+
+  // Query count
+  query_count:[uint64];
+
+  // Queries by type
+  a_count:[uint64];
+  aaaa_count:[uint64];
+  mx_count:[uint64];
+  ns_count:[uint64];
+
+  // Queries by class
+  non_IN_count:[uint64];
+
+  // Queries by opcode
+  ok_count:[uint64];
+  nx_count:[uint64];
+  fail_count:[uint64];
+
+  // Client count HLL+
+  v4client_count:[ubyte];
+  v6client_count:[ubyte];
+
+}
+
+table Histogram {
+  start_time:TimeStamp;
+  end_time:TimeStamp;
+  domainlist:[HistogramRow]
+}
