@@ -135,7 +135,7 @@
 
 // IDN
 
-namespace se.dnstapir;
+namespace dnstapir.se;
 
 struct TimeStamp {
   s:uint64;
@@ -156,16 +156,20 @@ struct Header {
   flags:uint16;
 }
 
-struct Counters {
-  qd          uint16
-  an          uint16
-  ns          uint16
-  ar          uint16
+struct ServerState {
+  key:[ubytes];
+  value:[ubytes];
 }
 
+struct Counters {
+  qd:uint16;
+  an:uint16;
+  ns:uint16;
+  ar:uint16;
+}
 
 table RdGeneric {
-  data:[ubytes]
+  data:[ubytes];
 }
 
 table RdA {
@@ -182,8 +186,6 @@ union RecordData {
   RdAAAA;
 }
 
-
-
 struct ResourceRecord {
   name:string;
   type:uint16;
@@ -196,49 +198,154 @@ struct ResourceRecord {
 struct Policy {
   match:enum
   action:enum
+  ...
 }
 
-struct Label {
-  value:[ubyte];
-}
+// Exploded DNStap data format
+table DNSsessionRow {
+  // FQDN as key
+  // Split FQDN into labels and maintain individual columns for each
+  // label - from right to left - with remaining labels above 9 in the last 
+  // column
+  // This generates a flat prefix tree / Trie structure
+  // The reason for not using a list for the entire key is to be able to
+  // partition on single labels
+  label0:string;    // com, edu, se, uk, etc
+  label1:string;    // ac, co, google, etc
+  label2:string;    // www, mail, etc
+  label3:string;
+  label4:string;
+  label5:string;
+  label6:string;
+  label7:string;
+  label8:string;
+  label9:[string];
 
-table DNS_session {
-  label0:[ubyte];
-  label1:[ubyte];
-  label2:[ubyte];
-  label3:[ubyte];
-  label4:[ubyte];
-  label5:[ubyte];
-  label6:[ubyte];
-  label7:[ubyte];
-  label8:[ubyte];
-  label9:[Label];
-  
+  // Wire format FQDN
+  // Either here or as a resource record
+  // Possibly better as the query resource 
+  // record below
+  // fqdn:[ubyte];
+
+  // Server information 
+  // DNS server identifier
   server_id:[ubyte];
-  query_time:TimeStamp;
-  response_time:TimeStamp;
 
+  // DNS TAPIR DNStap extension for 
+  // matching related packets
+  session_id:uint64;    
+
+  // A Session ID created by this session
+  // For example, this query caused a recursive query 
+  // to be made, and the referal_id then holds the 
+  // session_id of the recursive lookup
+  referal_id:uint64;    
+
+  // Internal server state, such as if the record was
+  // retrieved from cache, either persistent (preloaded
+  // domains) or volatile
+  // Implementation dependent, keys are freeform and
+  // values also
+  server_state:[ServerState];
+
+  // Timestamps
+  // not sure if offset from table header is wise
+  // but it saves two uint64. 
+  query_time_offset:uint64;
+  response_time_offset:uint64;
+
+  // Transport
   source_ipv4:IPv4;
   source_ipv6:IPv6;
   source_port:uint16;
   dest_ipv4:IPv4;
   dest_ipv6:IPv6;
   dest_port:uint16;
+
   transport:enum?;
   protocol:enum?;
+
+  // IP layer flags
   flags:uint32;
-  keyhash:[ubyte]
 
+  // TLS keyhash
+  //future enhancement
+  // Main use case is to measure the use of 
+  // session key reuse in DoH, DoQ, etc as
+  // this is a privacy concern
+  keyhash:[ubyte];   
+
+  // Query header data
   qheader:Header;
-  qcounters:Counters;
 
+  // Counters in the query package should
+  // always be just one query and nothing else
+  // - set only if not [1,0,0,0]
+  qcounters:Counters;   
+
+  // Response header data
   rheader:Header;
   rcounters:Counters;
 
+  // Resource records
   records:[ResourceRecord];
 
+  // Policy actions
   policies:[Policy];
 
+}
+
+// Table of dnstap data records
+DNSsessionBlock {
+  start_time:Timestamp;
+  stop_time:Timestamp;
+  sessions:[DNSsessionRow];
+}
+
+
+// Histogram table
+
+table HistogramRow {
+  // FQDN as key
+  label0:string;    // com, edu, se, uk, etc
+  label1:string;    // ac, co, google, etc
+  label2:string;    // www, mail, etc
+  label3:string;
+  label4:string;
+  label5:string;
+  label6:string;
+  label7:string;
+  label8:string;
+  label9:[string];
+
+  query_count:[uint64];
+  a_count:
+  aaaa_count
+  mx_count
+  ns_count
+  ...
+  non_IN_count:[uint64];
+  error_count:[uint64];
+  nx_count:[uint64];
+
+  v4client_count:[ubyte];
+  v6client_count:[ubyte];
 
 }
+
+table Histogram {
+  start_time:TimeStamp;
+  end_time:TimeStamp;
+  domainlist:[HistogramRow]
+}
+
+
+
+
+
+Parquet style schema
+
+message DNSsession {
+
+
 
