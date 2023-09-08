@@ -5,131 +5,128 @@
 // This generates a flat prefix tree / Trie structure
 // The reason for not using a list for the entire key is to be able to
 // partition on single labels
-
-1     label0          VarBinary          Content of rightmost DNS label
-2     label1          VarBinary          Content of second label from the right
-3     label2          VarBinary          Content of third label from the right
-4     label3          VarBinary          Content of fourth label from the right
-5     label4          VarBinary          Content of fifth label from the right
-6     label5          VarBinary          Content of sixth label from the right
-7     label6          VarBinary          Content of seventh label from the right
-8     label7          VarBinary          Content of eighth label from the right
-9     label8          VarBinary          Content of ninth label from the right
-10    label9          List<VarBinary>    Content of all labels beyond ninth
-
+// 
+// 1     label0          VarBinary          Content of rightmost DNS label
+// 2     label1          VarBinary          Content of second label from the right
+// 3     label2          VarBinary          Content of third label from the right
+// 4     label3          VarBinary          Content of fourth label from the right
+// 5     label4          VarBinary          Content of fifth label from the right
+// 6     label5          VarBinary          Content of sixth label from the right
+// 7     label6          VarBinary          Content of seventh label from the right
+// 8     label7          VarBinary          Content of eighth label from the right
+// 9     label8          VarBinary          Content of ninth label from the right
+// 10    label9          List<VarBinary>    Content of all labels beyond ninth
+// 
 // Source system
-
-11    server_id       [ubyte]   UUID?
-      session_id      uint64
-      referal_id      uint64
-      server_state    list<kvpairs>
-
+// 
+// 11    server_id       [ubyte]   UUID?
+//       session_id      uint64
+//       referal_id      uint64
+//       server_state    list<kvpairs>
+// 
 // Time data
-
-22    query_time      struct
-        s             uint64
-        ns            uint64
-23    response_time   struct
-        s             uint64
-        ns            uint64
-
+// 
+// 22    query_time      struct
+//         s             uint64
+//         ns            uint64
+// 23    response_time   struct
+//         s             uint64
+//         ns            uint64
+// 
 // Transport data
-
-12    source_ipv4     uint32
-13    source_ipv6     struct
-        network       uint64
-        host          uint64 
-14    source_port     uint16
-15    dest_ipv4       uint32
-16    dest_ipv6       struct
-        network       uint64
-        host          uint64
-17    dest_port       uint16
-18    transport       enum(UDP, TCP, QUIC...)
-19    protocol        enum(DNS, DoH, DoT...)
-20    flags           uint32
-21    keyhash         VarBinary
-
+// 
+// 12    source_ipv4     uint32
+// 13    source_ipv6     struct
+//         network       uint64
+//         host          uint64 
+// 14    source_port     uint16
+// 15    dest_ipv4       uint32
+// 16    dest_ipv6       struct
+//         network       uint64
+//         host          uint64
+// 17    dest_port       uint16
+// 18    transport       enum(UDP, TCP, QUIC...)
+// 19    protocol        enum(DNS, DoH, DoT...)
+// 20    flags           uint32
+// 21    keyhash         VarBinary
+// 
 // Query metadata
-
-24    qheader struct                  
-        id          uint16
-        flags       uint16
-
-25    qcounters struct                set only if not [1,0,0,0]
-        qd          uint16
-        an          uint16
-        ns          uint16
-        ar          uint16
-
+// 
+// 24    qheader struct                  
+//         id          uint16
+//         flags       uint16
+// 
+// 25    qcounters struct                set only if not [1,0,0,0]
+//         qd          uint16
+//         an          uint16
+//         ns          uint16
+//         ar          uint16
+// 
 // Response metadata
-
-26     rheader struct
-         id              uint16
-         flags           uint16
-
-27      rcounters struct             set only if not [1,1,0,0]
-          qd          uint16
-          an          uint16
-          ns          uint16
-          ar          uint16
-
-
+// 
+// 26     rheader struct
+//          id              uint16
+//          flags           uint16
+// 
+// 27      rcounters struct             set only if not [1,1,0,0]
+//           qd          uint16
+//           an          uint16
+//           ns          uint16
+//           ar          uint16
+// 
+// 
 // Resource records (query, response, auth, extra)
-
-28    list<rr:struct>
-
-        type            uint16
-        class           uint16
-        ttl             uint32
-        rdlength        uint16
-        rdata           union
-
-          generic          VarBinary
-
-          a                uint32
-        
-          aaaa struct
-            network        uint64
-            host           uint64
-          
-          mx struct
-            preference     uint16
-            name           VarBinary
-        
-          soa struct
-            mname          VarBinary
-            rname          VarBinary
-            serial         uint32
-            refresh        uint32
-            retry          uint32
-            expire         uint32
-            minimum        uint32
-
-          cname            VarBinary
-
-          hinfo struct
-            cpu            VarBinary
-            os             VarBinary
-
-          ns               VarBinary
-
-          ptr              VarBinary
-
-          txt              VarBinary
-
-          etc, until bored: the rest -> generic
-
-
+// 
+// 28    list<rr:struct>
+// 
+//         type            uint16
+//         class           uint16
+//         ttl             uint32
+//         rdlength        uint16
+//         rdata           union
+// 
+//           generic          VarBinary
+// 
+//           a                uint32
+//         
+//           aaaa struct
+//             network        uint64
+//             host           uint64
+//           
+//           mx struct
+//             preference     uint16
+//             name           VarBinary
+//         
+//           soa struct
+//             mname          VarBinary
+//             rname          VarBinary
+//             serial         uint32
+//             refresh        uint32
+//             retry          uint32
+//             expire         uint32
+//             minimum        uint32
+// 
+//           cname            VarBinary
+// 
+//           hinfo struct
+//             cpu            VarBinary
+//             os             VarBinary
+// 
+//           ns               VarBinary
+// 
+//           ptr              VarBinary
+// 
+//           txt              VarBinary
+// 
+//           etc, until bored: the rest -> generic
+// 
+// 
 // Policy
-
-  list<policy>
-    match
-    action
-    result
-
-
-
+// 
+//   list<policy>
+//     match
+//     action
+//     result
 
 
 
@@ -139,7 +136,7 @@ namespace dnstapir.se;
 
 struct TimeStamp {
   s:uint64;
-  ns:uint64;
+  ns:uint32;
 }
 
 struct IPv4 {
@@ -151,14 +148,29 @@ struct IPv6 {
   host:uint64;
 }
 
+union Address {
+  IPv4,
+  IPv6
+}
+
+enum DNSproto : ubyte { 
+    UDP = 1;         // DNS over UDP transport (RFC 1035 section 4.2.1)
+    TCP = 2;         // DNS over TCP transport (RFC 1035 section 4.2.2)
+    DOT = 3;         // DNS over TLS (RFC 7858)
+    DOH = 4;         // DNS over HTTPS (RFC 8484)
+    DNSCryptUDP = 5; // DNSCrypt over UDP (https://dnscrypt.info/protocol)
+    DNSCryptTCP = 6; // DNSCrypt over TCP (https://dnscrypt.info/protocol)
+    DOQ = 7;         // DNS over QUIC (RFC 9250)
+}
+
 struct Header {
   id:uint16;
   flags:uint16;
 }
 
 struct ServerState {
-  key:[ubytes];
-  value:[ubytes];
+  key:[ubyte];
+  value:[ubyte];
 }
 
 struct Counters {
@@ -168,22 +180,22 @@ struct Counters {
   ar:uint16;
 }
 
-table RdGeneric {
-  data:[ubytes];
+table Rd_Generic {
+  data:[ubyte];
 }
 
-table RdA {
+table Rd_A {
   data:IPv4;
 }
 
-table RdAAAA {
+table Rd_AAAA {
   data:IPv6;
 }
 
 union RecordData {
-  RdGeneric;
-  RdA;
-  RdAAAA;
+  RdGeneric,
+  RdA,
+  RdAAAA
 }
 
 struct ResourceRecord {
@@ -195,11 +207,52 @@ struct ResourceRecord {
   rdata:RecordData;
 }
 
-struct Policy {
-  match:enum
-  action:enum
-  ...
+
+enum Match {
+  QNAME = 1;       // Name in question section of query
+  CLIENT_IP = 2;   // Client IP address
+  RESPONSE_IP = 3; // Address in A/AAAA RRSet
+  NS_NAME = 4;     // Authoritative name server, by name
+  NS_IP = 5;       // Authoritative name server, by IP address
 }
+
+enum Action {
+  NXDOMAIN = 1;   // Respond with NXDOMAIN
+  NODATA = 2;     // Respond with empty answer section
+  PASS = 3;       // Do not alter the response (passthrough)
+  DROP = 4;       // Do not respond.
+  TRUNCATE = 5;   // Truncate UDP response, forcing TCP retry
+  LOCAL_DATA = 6; // Respond with local data from policy
+}
+
+struct Policy {
+  // Directly from DNStap - RPZ centric
+
+  // May need splitting into bits if policy exists in disparate 
+  // bits of code
+
+  // type: the type of policy applied, e.g. "RPZ" for a
+  // policy from a Response Policy Zone.
+  type:[ubyte];
+
+  // rule: the rule matched by the message.
+  rule:[ubyte];
+
+  // action: the policy action taken in response to the
+  // rule match.
+  action:Action;
+
+  // match: the feature of the message exchange which matched the rule.
+  match:Match;
+
+  // The matched value. Format depends on the matched feature
+  value:[ubyte];
+
+  // The original value and what it changed to should be here
+
+}
+
+// DNS query session data
 
 // Exploded DNStap data format
 table DNSsessionRow {
@@ -219,12 +272,12 @@ table DNSsessionRow {
   label6:string;
   label7:string;
   label8:string;
-  label9:[string];
+  label9:[string];   // remainder
 
   // Wire format FQDN
   // Either here or as a resource record
   // Possibly better as the query resource 
-  // record below
+  // record below?
   // fqdn:[ubyte];
 
   // Server information 
@@ -249,24 +302,36 @@ table DNSsessionRow {
   server_state:[ServerState];
 
   // Timestamps
+
+  // Offsets
   // not sure if offset from table header is wise
   // but it saves two uint64. 
   query_time_offset:uint64;
   response_time_offset:uint64;
 
+  // Full timestamps
+  query_time:TimeStamp;
+  response_time:TimeStamp;
+
   // Transport
+  // IP protocol layer
+  // Source
+  // implicit anyof ipv4/ipv6
   source_ipv4:IPv4;
   source_ipv6:IPv6;
-  source_port:uint16;
+
+  // Destination
+  // implicit anyof ipv4/ipv6
   dest_ipv4:IPv4;
   dest_ipv6:IPv6;
-  dest_port:uint16;
-
-  transport:enum?;
-  protocol:enum?;
 
   // IP layer flags
   flags:uint32;
+
+  // Transport layer
+  source_port:uint16;
+  dest_port:uint16;
+  dns_protocol:DNSproto;
 
   // TLS keyhash
   //future enhancement
@@ -303,7 +368,7 @@ DNSsessionBlock {
 }
 
 
-// Histogram table
+// Histogram
 
 table HistogramRow {
   // FQDN as key
@@ -316,18 +381,26 @@ table HistogramRow {
   label6:string;
   label7:string;
   label8:string;
-  label9:[string];
+  label9:[string];   // remainder
 
+  // Query count
   query_count:[uint64];
-  a_count:
-  aaaa_count
-  mx_count
-  ns_count
-  ...
-  non_IN_count:[uint64];
-  error_count:[uint64];
-  nx_count:[uint64];
 
+  // Queries by type
+  a_count:[uint64];
+  aaaa_count:[uint64];
+  mx_count:[uint64];
+  ns_count:[uint64];
+
+  // Queries by class
+  non_IN_count:[uint64];
+
+  // Queries by opcode
+  ok_count:[uint64];
+  nx_count:[uint64];
+  fail_count:[uint64];
+
+  // Client count HLL+
   v4client_count:[ubyte];
   v6client_count:[ubyte];
 
@@ -338,14 +411,5 @@ table Histogram {
   end_time:TimeStamp;
   domainlist:[HistogramRow]
 }
-
-
-
-
-
-Parquet style schema
-
-message DNSsession {
-
 
 
