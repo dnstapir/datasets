@@ -1,135 +1,3 @@
-
-// DNS index key. Split FQDN into labels and maintain individual columns for
-// each label - from right to left - with remaining labels above 9 in the last 
-// column
-// This generates a flat prefix tree / Trie structure
-// The reason for not using a list for the entire key is to be able to
-// partition on single labels
-// 
-// 1     label0          VarBinary          Content of rightmost DNS label
-// 2     label1          VarBinary          Content of second label from the right
-// 3     label2          VarBinary          Content of third label from the right
-// 4     label3          VarBinary          Content of fourth label from the right
-// 5     label4          VarBinary          Content of fifth label from the right
-// 6     label5          VarBinary          Content of sixth label from the right
-// 7     label6          VarBinary          Content of seventh label from the right
-// 8     label7          VarBinary          Content of eighth label from the right
-// 9     label8          VarBinary          Content of ninth label from the right
-// 10    label9          List<VarBinary>    Content of all labels beyond ninth
-// 
-// Source system
-// 
-// 11    server_id       [ubyte]   UUID?
-//       session_id      uint64
-//       referal_id      uint64
-//       server_state    list<kvpairs>
-// 
-// Time data
-// 
-// 22    query_time      struct
-//         s             uint64
-//         ns            uint64
-// 23    response_time   struct
-//         s             uint64
-//         ns            uint64
-// 
-// Transport data
-// 
-// 12    source_ipv4     uint32
-// 13    source_ipv6     struct
-//         network       uint64
-//         host          uint64 
-// 14    source_port     uint16
-// 15    dest_ipv4       uint32
-// 16    dest_ipv6       struct
-//         network       uint64
-//         host          uint64
-// 17    dest_port       uint16
-// 18    transport       enum(UDP, TCP, QUIC...)
-// 19    protocol        enum(DNS, DoH, DoT...)
-// 20    flags           uint32
-// 21    keyhash         VarBinary
-// 
-// Query metadata
-// 
-// 24    qheader struct                  
-//         id          uint16
-//         flags       uint16
-// 
-// 25    qcounters struct                set only if not [1,0,0,0]
-//         qd          uint16
-//         an          uint16
-//         ns          uint16
-//         ar          uint16
-// 
-// Response metadata
-// 
-// 26     rheader struct
-//          id              uint16
-//          flags           uint16
-// 
-// 27      rcounters struct             set only if not [1,1,0,0]
-//           qd          uint16
-//           an          uint16
-//           ns          uint16
-//           ar          uint16
-// 
-// 
-// Resource records (query, response, auth, extra)
-// 
-// 28    list<rr:struct>
-// 
-//         type            uint16
-//         class           uint16
-//         ttl             uint32
-//         rdlength        uint16
-//         rdata           union
-// 
-//           generic          VarBinary
-// 
-//           a                uint32
-//         
-//           aaaa struct
-//             network        uint64
-//             host           uint64
-//           
-//           mx struct
-//             preference     uint16
-//             name           VarBinary
-//         
-//           soa struct
-//             mname          VarBinary
-//             rname          VarBinary
-//             serial         uint32
-//             refresh        uint32
-//             retry          uint32
-//             expire         uint32
-//             minimum        uint32
-// 
-//           cname            VarBinary
-// 
-//           hinfo struct
-//             cpu            VarBinary
-//             os             VarBinary
-// 
-//           ns               VarBinary
-// 
-//           ptr              VarBinary
-// 
-//           txt              VarBinary
-// 
-//           etc, until bored: the rest -> generic
-// 
-// 
-// Policy
-// 
-//   list<policy>
-//     match
-//     action
-//     result
-
-
-
 // IDN
 
 namespace dnstapir.se;
@@ -384,13 +252,14 @@ table HistogramRow {
   label9:[string];   // remainder
 
   // Query count
-  query_count:[uint64];
+  // query_count:[uint64];
 
   // Queries by type
   a_count:[uint64];
   aaaa_count:[uint64];
   mx_count:[uint64];
   ns_count:[uint64];
+  other_count:[uint64];
 
   // Queries by class
   non_IN_count:[uint64];
