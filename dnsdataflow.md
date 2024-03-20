@@ -61,12 +61,40 @@ Policy rule
 Policy action
 Policy match
 Policy value
-</span>]
+</span>]:::left
 T --- DTM(DTM):::service
-DTM --- Hist[DNS Histogram]
-DTM --- Event[Event Notification]
+DTM --- Hist["DNS Histogram
+<span style='font-size:11px;'>
+Timestamp (min)
+Query name (labels0-9)
+A_count
+AAAA_count
+MX_count
+NS_count
+Other_count
+NonIN_count
+OK_count
+NX_count
+Fail_count
+Tag_Bitfield
+Tag_String
+V4Client_HLLbytes
+V6Client_HLLbytes</span>
+"]:::left
+DTM --- Event["Event Notification
+<span style='font-size:11px;'>Version
+Timestamp (min)
+Type: new_qname
+Qname
+Qtype
+Qclass
+Flags
+Rdlength
+Type: new_aggregate
+See metadata</span>
+"]:::left
 DTM --- Mini[Minimized DNS log]
 
 classDef service fill:#295499,color:#000
-style T text-align:left
+classDef left text-align:left
 ```
