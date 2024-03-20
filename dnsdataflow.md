@@ -129,6 +129,13 @@ Dictionary:
 Hash → qname, qname"
 ]:::left
 
+Time["Timestamps
+<span style='font-size:11px;'>
+(min) timestamp (yyyy-mm-dd hh:mm)
+(ms) timestamp (yyyy-mm-dd hh:mm:ss.nnn)
+</span>"]:::info
+
 classDef service fill:#295499,color:#000
 classDef left text-align:left
+classDef info fill:#1a651a,stroke:#000,color:#000,text-align:left
 ```
