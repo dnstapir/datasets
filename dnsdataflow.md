@@ -106,6 +106,9 @@ source_port
 dest_port
 DNSprotocol
 Query message</span>"]:::left
+Mini --- L(Localise):::service 
+L --- HL[DNS Histogram local]
+L --- QV[DNS Query Vectors]
 
 classDef service fill:#295499,color:#000
 classDef left text-align:left
