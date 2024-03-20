@@ -93,7 +93,19 @@ Rdlength
 Type: new_aggregate
 See metadata</span>
 "]:::left
-DTM --- Mini[Minimized DNS log]
+DTM --- Mini["Minimized DNS log
+<span style='font-size:11px;'>Query name (labels 0-9)
+QueryTime (ms)
+ResponseTime (ms)
+source_ipv4 (CryptoPAn)
+dest_ipv4
+source_ipv6_net (CryptoPAn)
+source_ipv6_host (CryptoPAn)
+dest_ipv6
+source_port
+dest_port
+DNSprotocol
+Query message</span>"]:::left
 
 classDef service fill:#295499,color:#000
 classDef left text-align:left
