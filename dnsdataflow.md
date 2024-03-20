@@ -28,7 +28,8 @@ flowchart LR
     F[DNS over QUIC
     <span style="font-size:11px;">rfc9250
     </span>] --- R
-  R:::service --- T[DNStap data 
+  R:::service --- T[DNStap data
+
     <span style="font-size:11px;">Server identity
     Server version
     Extra data
@@ -82,6 +83,7 @@ V4Client_HLLbytes
 V6Client_HLLbytes</span>
 "]:::left
 DTM --- Event["Event Notification
+
 <span style='font-size:11px;'>Version
 Timestamp (min)
 Type: new_qname
@@ -94,6 +96,7 @@ Type: new_aggregate
 See metadata</span>
 "]:::left
 DTM --- Mini["Minimized DNS log
+
 <span style='font-size:11px;'>Query name (labels 0-9)
 QueryTime (ms)
 ResponseTime (ms)
@@ -105,10 +108,26 @@ dest_ipv6
 source_port
 dest_port
 DNSprotocol
-Query message</span>"]:::left
+
+Query message
+Response message</span>"]:::left
 Mini --- L(Localise):::service 
-L --- HL[DNS Histogram local]
-L --- QV[DNS Query Vectors]
+L --- HL["DNS Histogram local
+
+<span style='font-size:11px;'>Timestamp (min)
+Query name (labels)
+
+Uploaded histograms"]:::left
+L --- QV["DNS Query Vectors
+<span style='font-size:11px;'>
+Starttime
+Stoptime
+Sequence of:
+hash32(qname)
+
+Dictionary:
+Hash → qname, qname"
+]:::left
 
 classDef service fill:#295499,color:#000
 classDef left text-align:left
