@@ -28,7 +28,7 @@ flowchart LR
     F[DNS over QUIC
     <span style="font-size:11px;">rfc9250
     </span>] --- R
-  R --- T[DNStap data 
+  R:::service --- T[DNStap data 
     <span style="font-size:11px;">Server identity
     Server version
     Extra data
@@ -62,7 +62,11 @@ Policy action
 Policy match
 Policy value
 </span>]
+T --- DTM(DTM):::service
+DTM --- Hist[DNS Histogram]
+DTM --- Event[Event Notification]
+DTM --- Mini[Minimized DNS log]
 
-style R fill:#295499,color:#000
+classDef service fill:#295499,color:#000
 style T text-align:left
 ```
