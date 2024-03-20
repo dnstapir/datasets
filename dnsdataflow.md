@@ -131,5 +131,5 @@ Hash → qname, qname"
 
 classDef service fill:#295499,color:#000
 classDef left text-align:left
-classDef info fill:#1a651a,stroke:#000,color:#000,text-align:left
+
 ```
