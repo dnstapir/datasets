@@ -10,7 +10,7 @@
 
 flowchart LR
     A[DNS payload 
-    <span style="font-size:11px;">rfc1035
+    <span style="font-size:11px;text-align:left;">rfc1035
     rfc6871</span>
 ] --- R(Resolver)
     B[DNS over UDP
@@ -62,4 +62,7 @@ Policy action
 Policy match
 Policy value
 </span>]
+
+style R fill:#295499,color:#000
+style T text-align:left
 ```
