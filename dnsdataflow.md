@@ -129,6 +129,18 @@ hash32(qname)
 Dictionary:
 Hash → qname, qname"
 ]:::left
+HL --- AF(Aggregate Receiver)
+QV --- AF
+Hist --- AF
+AF --- Gb(Globalise
+<span style='font-size:11px;'>Intelligence Feed</span>)
+Event --- Er(Event Receiver)
+Er --- Gb
+Gb --- Tem("TEM
+<span style='font-size:11px;'>Event Nofication (subset)</span>")
+Gb --- 3p(3rd Party)
+Gb --- W(Web)
+
 
 classDef service fill:#295499,color:#000
 classDef left text-align:left
