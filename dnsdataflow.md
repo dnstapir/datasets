@@ -137,12 +137,15 @@ AF --- Gb(Globalise
 Event --- Er(Event Receiver)
 Er --- Gb
 Gb --- Tem("TEM
-<span style='font-size:11px;'>Event Nofication (subset)</span>")
-Gb --- 3p(3rd Party)
-Gb --- W(Web)
-
+<span style='font-size:11px;'>Event Nofication
+(subset, new domain)"</span>)
+Gb --- 3p(3rd Party
+<span style='font-size:11px;'>Domain name list</span>)
+Gb --- W("Web
+<span style='font-size:11px;'>Histogram (categorized)
+Domain name list"</span>)
 
 classDef service fill:#295499,color:#000
-classDef left text-align:left
+classDef left text-align:left;
 
 ```
