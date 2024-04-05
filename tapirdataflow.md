@@ -2,7 +2,6 @@
 
 %%{
   init: {
-  "theme": "dark",
   "themeVariables": {
     "fontFamily": "monospace"
   }
@@ -62,7 +61,7 @@ Policy rule
 Policy action
 Policy match
 Policy value
-</span>]:::left
+</span>]:::nodebase
 DTM --- Event["Event Notification
 
 <span style='font-size:11px;'>Version
@@ -75,7 +74,7 @@ Flags
 Rdlength
 Type: new_aggregate
 See metadata</span>
-"]:::left
+"]:::nodebase
 T --- DTM(DTM):::service
 DTM --- Hist["DNS Histogram
 <span style='font-size:11px;'>
@@ -94,7 +93,7 @@ Tag_Bitfield
 Tag_String
 V4Client_HLLbytes
 V6Client_HLLbytes</span>
-"]:::left
+"]:::nodebase
 
 DTM --- Mini["Minimized DNS log
 
@@ -111,14 +110,14 @@ dest_port
 DNSprotocol
 
 Query message
-Response message</span>"]:::left
+Response message</span>"]:::nodebase
 Mini --- L(Localise):::service 
 L --- HL["DNS Histogram local
 
 <span style='font-size:11px;'>Timestamp (min)
 Query name (labels)
 
-Uploaded histograms"]:::left
+Uploaded histograms"]:::nodebase
 L --- QV["DNS Query Vectors
 <span style='font-size:11px;'>
 Starttime
@@ -128,7 +127,7 @@ hash32(qname)
 
 Dictionary:
 Hash → qname, qname"
-]:::left
+]:::nodebase
 HL --- AF(Aggregate Receiver)
 QV --- AF
 Hist --- AF
@@ -146,7 +145,7 @@ Gb --- W("Web
 Domain name list"</span>)
 
 classDef service fill:#66b3ff,color:#000
-classDef left text-align:left;
+classDef nodebase text-align:left;
 
 
 ```
