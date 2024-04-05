@@ -133,19 +133,20 @@ HL --- AF(Aggregate Receiver)
 QV --- AF
 Hist --- AF
 AF --- Gb(Globalise
-<span style='font-size:11px;'>Intelligence Feed</span>)
+<span style='font-size:11px;'>Intelligence Feed</span>):::service 
 Event --- Er(Event Receiver)
 Er --- Gb
 Gb --- Tem("TEM
 <span style='font-size:11px;'>Event Nofication
-(subset, new domain)"</span>)
+(subset, new domain)"</span>):::service 
 Gb --- 3p(3rd Party
 <span style='font-size:11px;'>Domain name list</span>)
 Gb --- W("Web
 <span style='font-size:11px;'>Histogram (categorized)
 Domain name list"</span>)
 
-classDef service fill:#295499,color:#000
+classDef service fill:#66b3ff,color:#000
 classDef left text-align:left;
+
 
 ```
