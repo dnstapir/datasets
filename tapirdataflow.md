@@ -1,5 +1,4 @@
 ```mermaid
-
 %%{
   init: {
   "themeVariables": {
@@ -63,7 +62,7 @@ Policy match
 Policy value
 </span>]:::sensitive
 
-DTM --- Event["Event Notification
+DTM -- New --- Event["Event Notification
 
 <span style='font-size:11px;'>Version
 Timestamp (min)
@@ -79,7 +78,7 @@ See metadata</span>
 
 T --- DTM(DTM):::service
 
-DTM --- Hist["DNS Histogram
+DTM -- Well known --- Hist["DNS Histogram
 <span style='font-size:11px;'>
 Timestamp (min)
 Query name (labels0-9)
@@ -98,7 +97,7 @@ V4Client_HLLbytes
 V6Client_HLLbytes</span>
 "]:::nodebase
 
-DTM --- Mini["Minimized DNS log
+DTM -- Uncertain --- Mini["Minimized DNS log
 
 <span style='font-size:11px;'>Query name (labels 0-9)
 QueryTime (ms)
@@ -132,7 +131,6 @@ hash32(qname)
 Dictionary:
 Hash → qname, qname"
 ]:::nodebase
-
 HL --- AF(Aggregate Receiver)
 QV --- AF
 Hist --- AF
@@ -148,8 +146,11 @@ Gb --- 3p(3rd Party
 Gb --- W("Web
 <span style='font-size:11px;'>Histogram (categorized)
 Domain name list"</span>)
+
 classDef service fill:#66b3ff,color:#000
 classDef nodebase text-align:left;
 classDef sensitive text-align:left,stroke:#c00;
 classDef partly-sensitive text-align:left,stroke:#f90;
+
+```
 
