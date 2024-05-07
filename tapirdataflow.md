@@ -61,7 +61,8 @@ Policy rule
 Policy action
 Policy match
 Policy value
-</span>]:::nodebase
+</span>]:::sensitive
+
 DTM --- Event["Event Notification
 
 <span style='font-size:11px;'>Version
@@ -75,7 +76,9 @@ Rdlength
 Type: new_aggregate
 See metadata</span>
 "]:::nodebase
+
 T --- DTM(DTM):::service
+
 DTM --- Hist["DNS Histogram
 <span style='font-size:11px;'>
 Timestamp (min)
@@ -110,14 +113,15 @@ dest_port
 DNSprotocol
 
 Query message
-Response message</span>"]:::nodebase
-Mini --- L(Localise):::service 
-L --- HL["DNS Histogram local
+Response message</span>"]:::sensitive
 
+Mini --- L(Localise):::service 
+
+L --- HL["DNS Histogram local
 <span style='font-size:11px;'>Timestamp (min)
 Query name (labels)
-
 Uploaded histograms"]:::nodebase
+
 L --- QV["DNS Query Vectors
 <span style='font-size:11px;'>
 Starttime
@@ -128,10 +132,11 @@ hash32(qname)
 Dictionary:
 Hash → qname, qname"
 ]:::nodebase
+
 HL --- AF(Aggregate Receiver)
 QV --- AF
 Hist --- AF
-AF --- Gb(Globalise
+AF --- Gb(CORE: Globalise
 <span style='font-size:11px;'>Intelligence Feed</span>):::service 
 Event --- Er(Event Receiver)
 Er --- Gb
@@ -143,9 +148,8 @@ Gb --- 3p(3rd Party
 Gb --- W("Web
 <span style='font-size:11px;'>Histogram (categorized)
 Domain name list"</span>)
-
 classDef service fill:#66b3ff,color:#000
 classDef nodebase text-align:left;
+classDef sensitive text-align:left,stroke:#c00;
+classDef partly-sensitive text-align:left,stroke:#f90;
 
-
-```
