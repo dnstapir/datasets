@@ -1,4 +1,5 @@
 ```mermaid
+
 %%{
   init: {
   "themeVariables": {
@@ -9,24 +10,23 @@
 flowchart LR
     A[DNS payload 
     <span style="font-size:11px;text-align:left;">rfc1035
-    rfc6871</span>
-] --- R(Resolver)
+    rfc6871</span>]:::nodebase --- R(Resolver)
     B[DNS over UDP
     <span style="font-size:11px;">rfc1035
-    </span>] --- R
+    </span>]:::nodebase --- R
     C[DNS over TCP
     <span style="font-size:11px;">rfc7766
-    </span>] --- R
+    </span>]:::nodebase --- R
     D[DNS over TLS
     <span style="font-size:11px;">rfc7858
-    </span>] --- R
+    </span>]:::nodebase --- R
     E[DNS over HTTPS
     <span style="font-size:11px;">rfc8484
-    </span>] --- R
+    </span>]:::nodebase --- R
     F[DNS over QUIC
     <span style="font-size:11px;">rfc9250
-    </span>] --- R
-  R:::service --- T[DNStap data
+    </span>]:::nodebase --- R
+  R:::service_other --- T[DNStap data
 
     <span style="font-size:11px;">Server identity
     Server version
@@ -62,7 +62,7 @@ Policy match
 Policy value
 </span>]:::sensitive
 
-DTM -- New --- Event["Event Notification
+DTM --- Event["Event Notification
 
 <span style='font-size:11px;'>Version
 Timestamp (min)
@@ -76,9 +76,10 @@ Type: new_aggregate
 See metadata</span>
 "]:::nodebase
 
-T --- DTM(DTM):::service
+T --- DTM("DTM 
+(DNSTap Minimise)"):::service
 
-DTM -- Well known --- Hist["DNS Histogram
+DTM --- Hist["DNS Histogram
 <span style='font-size:11px;'>
 Timestamp (min)
 Query name (labels0-9)
@@ -97,7 +98,7 @@ V4Client_HLLbytes
 V6Client_HLLbytes</span>
 "]:::nodebase
 
-DTM -- Uncertain --- Mini["Minimized DNS log
+DTM --- Mini["Minimized DNS log
 
 <span style='font-size:11px;'>Query name (labels 0-9)
 QueryTime (ms)
@@ -114,7 +115,7 @@ DNSprotocol
 Query message
 Response message</span>"]:::sensitive
 
-Mini --- L(Localise):::service 
+Mini --- L(EDGE: Analyse):::service 
 
 L --- HL["DNS Histogram local
 <span style='font-size:11px;'>Timestamp (min)
@@ -134,23 +135,25 @@ Hash → qname, qname"
 HL --- AF(Aggregate Receiver)
 QV --- AF
 Hist --- AF
-AF --- Gb(CORE: Globalise
+AF --- Gb(CORE: Analyse
 <span style='font-size:11px;'>Intelligence Feed</span>):::service 
 Event --- Er(Event Receiver)
 Er --- Gb
-Gb --- Tem("TEM
+
+Gb --- Tem("TEM (TAPIR Edge Manager)
 <span style='font-size:11px;'>Event Nofication
 (subset, new domain)"</span>):::service 
+
 Gb --- 3p(3rd Party
-<span style='font-size:11px;'>Domain name list</span>)
+<span style='font-size:11px;'>Domain name list</span>):::greyed
+
 Gb --- W("Web
 <span style='font-size:11px;'>Histogram (categorized)
-Domain name list"</span>)
+Domain name list"</span>):::nodebase
 
 classDef service fill:#66b3ff,color:#000
 classDef nodebase text-align:left;
-classDef sensitive text-align:left,stroke:#c00;
-classDef partly-sensitive text-align:left,stroke:#f90;
+classDef sensitive text-align:left,stroke:#c00,stroke-width:4px;
+classDef service_other fill:#809fff,color:#000
 
 ```
-
