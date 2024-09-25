@@ -1,6 +1,6 @@
 # Edge-local DNS logs
 
-These logs are the remainder after Edge DNSTAP minimize has removed queries marked for aggregation (or otherwise discarded). Currently the complete DNSTAP message with the IP address pseudonymised with CryptoPAn is stored locally at the Edge.
+These logs are the remainder after Edge DNSTAP minimize (EDM) has removed queries marked for aggregation (or otherwise discarded). Currently the complete DNSTAP message with the IP address pseudonymised with CryptoPAn is stored locally at the Edge.
 
 However, writing these logs is turned off by default as the local analysis engine is not fully implemented. Data will be tuned more closely to what is specifically needed as the local process evolves.
 
