@@ -6,23 +6,10 @@ Members of this set are high frequency domains generally seen as benign or harml
 
 This data is primarily used for filtering data, but it also aims to constitute the best approximation to a _known good_ classification. 
 
-<table>
-  <tr>
-    <th>Name</th>        
-    <th>Type</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>name</td>        
-    <td>bytestring</td>      
-    <td>The full domain</td>
-  </tr>
-  <tr>
-    <td>match_exact</td>        
-    <td>boolean</td>           
-    <td>Exact(1) or subtree match(0)</td>
-  </tr>
-</table>
+|  Name          | Type            | Description    |
+| :------------- | :-------------  | :------------- |
+|name            |bytestring       |The full domain |
+|match_exact     |boolean          |Exact(1) or subtree match(0)|
 
 category?
 ttl?
