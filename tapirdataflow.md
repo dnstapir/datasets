@@ -62,7 +62,7 @@ Policy match
 Policy value
 </span>]:::sensitive
 
-DTM --- Event["Event Notification
+EDM --- Event["Event Notification
 
 <span style='font-size:11px;'>Version
 Timestamp (min)
@@ -76,10 +76,10 @@ Type: new_aggregate
 See metadata</span>
 "]:::nodebase
 
-T --- DTM("DTM 
-(DNSTap Minimise)"):::service
+T --- EDM("EDM 
+(Edge DNSTap Minimise)"):::service
 
-DTM --- Hist["DNS Histogram
+EDM --- Hist["DNS Histogram
 <span style='font-size:11px;'>
 Timestamp (min)
 Query name (labels0-9)
@@ -98,7 +98,7 @@ V4Client_HLLbytes
 V6Client_HLLbytes</span>
 "]:::nodebase
 
-DTM --- Mini["Minimized DNS log
+EDM --- Mini["Minimized DNS log
 
 <span style='font-size:11px;'>Query name (labels 0-9)
 QueryTime (ms)
@@ -140,7 +140,7 @@ AF --- Gb(CORE: Analyse
 Event --- Er(Event Receiver)
 Er --- Gb
 
-Gb --- Tem("TEM (TAPIR Edge Manager)
+Gb --- Pop("POP (TAPIR Edge Policy Processor)
 <span style='font-size:11px;'>Event Nofication
 (subset, new domain)"</span>):::service 
 
