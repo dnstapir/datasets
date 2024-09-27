@@ -1,0 +1,28 @@
+# Subdomain trees that are known and should be aggregated at Edge
+# This is not a statement on the quality of the domain, merely
+# indicates a previously known domain 
+# Mainly used by Edge DNSTAP minimiser (EDM)
+# Names are matched by suffix (right-anchored)
+#
+# Important note:
+#
+# Domains that are aggregated as wildcards will be summarised under
+# that label, so by wildcarding "example.com" will result in all 
+# features extracted by EDM being aggregated under that domain, eg
+#
+# example.com, <all A-queries>, <all AAAA-queries>, etc.
+#
+# Domains aggregated in this way will have the wildcard flag set
+# in the EDM histogram report. If there also exists an entry for 
+# exactly matching example.com, there will be two entries.
+# 
+#
+# A test set based a list of names can be generated as follows:
+#
+#  tapir-cli --standalone dawg compile --format text --src wellknownwildcards.txt --dawg out.dawg
+#
+# The names need to have a dot prepended to be seen as wildcards, so
+# the wildcard string for "example.com." would be ".example.com."
+#
+google.com.
+facebook.com.

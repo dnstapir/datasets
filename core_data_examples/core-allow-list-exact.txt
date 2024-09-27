@@ -1,0 +1,15 @@
+# Domains that should not be blocked
+# In effect a "known-good" list
+# Mainly used by Edge Policy Processor
+# Names are matched exakt
+#
+
+# Government
+skatteverket.se.
+www.skatteverket.se.
+
+# Infrastructure
+i.root-servers.net.
+
+# Corporate
+www.dnstapir.se.

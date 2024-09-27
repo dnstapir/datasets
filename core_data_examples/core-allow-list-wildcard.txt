@@ -1,0 +1,15 @@
+# Subdomain trees that should not be blocked
+# In effect a "known-good" list
+# Mainly used by Edge Policy Processor
+# Names are matched on suffix (right anchored) 
+#
+# Government
+riksdagen.se.
+sunet.se.
+#
+# Infrastructure
+root-servers.net.
+#
+# Corporate
+netnod.se.
+internetstiftelsen.se.
