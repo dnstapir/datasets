@@ -1,1 +1,7 @@
+# Internal domains that should be excluded from DNS TAPIR
+# processing. Typically ISP infrastructure domains or
+# corporate internal domains
+# 
+# The domain names here are matched by suffix (right-anchored) 
+#
 inside.example.com.
