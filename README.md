@@ -104,14 +104,14 @@ Filters primarily serve to minimise data by removing uninteresting data or noise
 TBD
 
 
-## Notifications
+## Observations
 
-Notifications are publicised domains that pass a threshold. There may be multiple thresholds signifying an estimation of reliability or risk. 
+Observations are publicised domains that pass a threshold. There may be multiple thresholds signifying an estimation of reliability or risk. 
 
 - [Observation Event (aggregated)](AggregatedObservations.md) are events sent from Core with aggregated observations ( ≤ 32 tags )
 - [Observation Events (detailed)](future/DetailedObservations.md) are events with full tag information ( ∞ tags )
 
-To receive Events and generate Notifications, two example Jupyter Notebooks can be found below. One uses a one-shot mechanism to send continuous MQTT messages to Edge Policy Manager, and the other implements a server that prints out incoming Events - and if a domain arrives as "something.something.foo.example.com" generates an observation for "something.something.foo".   
+To receive Events and generate Observations, two example Jupyter Notebooks can be found below. One uses a one-shot mechanism to send continuous MQTT messages to Edge Policy Processor, and the other implements a server that prints out incoming Events - and if a domain arrives as "something.something.foo.example.com" generates an observation for "something.something.foo".   
 
 - [One-shot MQTT](notebooks/MqttTest_example.ipynb)
 - [MQTT Server](notebooks/MqttServer_example.ipynb)
