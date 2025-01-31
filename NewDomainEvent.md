@@ -7,17 +7,14 @@ New Domain notifications are sent when incoming data triggers a unique event. Ch
 
 | #  |  Name          | Type            | Required | Description|
 |:---| :------------- | :-------------  |:-------- | :------------- |
-| 1  | Event          | Integer         | yes      | Type of event |
-| 2  | Sendtime       | Timestamp       | no       | Event time of transmission |
-| 3  | Name           | Bytestring       | yes     | The fully qualified domain name |
-| 4  | Type           | Int16            | yes     | Query type |
-| 5  | Class          | Int16            | no      | Query Class |
-| 6  | RFlags         | Int16            | yes     | Response Header flags |
-| 7  | TTL            | Int32            | no      | Resource record time-to-live |
-| 8  | RdLength       | Int16            | yes     | Length of RDATA |
-| 9  | RData          | Bytestring       | no      | Response data resource record |
-| 10 | NSName         | Bytestring       | no      | Name of responding authoritative server |
-| 11 | NSIP           | IP               | no      | IPv4 or IPv6 address of responding authoritative server |
+| 1  | Flags             | Integer      | yes      | Response Header flags |
+| 2  | Timestamp        | Timestamp     | yes      | Event time of transmission |
+| 5  | QClass           | Int16         | no       | Query Class |
+| 3  | QName            | Bytestring    | yes      | The fully qualified domain name |
+| 4  | QType            | Int16         | yes      | Query type |
+| 8  | RdLength         | Int16         | yes      | Length of RDATA |
+| 8  | Type             | Int16         | yes      |  |
+| 11 | ProtocolVersion  | Int16         | yes      |  |
 
 Extensions for local use include information about the querying client, but these are not privacy safe and should be confined to the local system owner.
 
