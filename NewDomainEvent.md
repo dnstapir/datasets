@@ -7,14 +7,14 @@ New Domain notifications are sent when incoming data triggers a unique event. Ch
 
 | #  |  Name          | Type            | Required | Description|
 |:---| :------------- | :-------------  |:-------- | :------------- |
-| 1  | Flags          | Integer         | yes      | Response Header flags |
-| 2  | Timestamp      | Timestamp       |          | Event time of transmission |
-| 5  | QClass         | Int16            | no      | Query Class |
-| 3  | QName          | Bytestring       | yes     | The fully qualified domain name |
-| 4  | QType          | Int16            | yes     | Query type |
-| 8  | RdLength       | Int16            | yes     | Length of RDATA |
-| 8  | Type           | Int16            |         |  |
-| 11 | Version        | IP               |         |  |
+| 1  | Flags             | Integer      | yes      | Response Header flags |
+| 2  | Timestamp        | Timestamp     | yes      | Event time of transmission |
+| 5  | QClass           | Int16         | no       | Query Class |
+| 3  | QName            | Bytestring    | yes      | The fully qualified domain name |
+| 4  | QType            | Int16         | yes      | Query type |
+| 8  | RdLength         | Int16         | yes      | Length of RDATA |
+| 8  | Type             | Int16         | yes      |  |
+| 11 | ProtocolVersion  | Int16         | yes      |  |
 
 Extensions for local use include information about the querying client, but these are not privacy safe and should be confined to the local system owner.
 
